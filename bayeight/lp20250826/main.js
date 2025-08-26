@@ -84,3 +84,28 @@
         }
     });
 })();
+
+// ==== ヒーローの回転ワード ====
+(function () {
+    const el = document.getElementById('hero-rotate');
+    if (!el) return;
+    const words = ['合格設計', '週次コーチング', '学習習慣化'];
+    let i = 0;
+    setInterval(() => {
+        i = (i + 1) % words.length;
+        el.style.opacity = 0;
+        setTimeout(() => { el.textContent = words[i]; el.style.opacity = 1; }, 200);
+    }, 1800);
+})();
+
+// ==== スクロールでふわっと表示 ====
+(function () {
+    const targets = Array.from(document.querySelectorAll('[data-reveal]'));
+    if (!('IntersectionObserver' in window) || targets.length === 0) {
+        targets.forEach(t => t.classList.add('is-in')); return;
+    }
+    const io = new IntersectionObserver((entries) => {
+        entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('is-in'); });
+    }, { threshold: 0.1 });
+    targets.forEach(t => io.observe(t));
+})();

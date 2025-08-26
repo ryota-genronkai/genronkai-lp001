@@ -13,6 +13,8 @@
   <link rel="stylesheet" href="/style.css" />
   <script defer src="/main.js"></script>
 </head>
+<div class="sticky-cta"><a href="#form" class="cta-link">無料相談（0円）</a></div>
+
 <body>
 
   <!-- 0) ヘッダー帯（狭め表示） -->
@@ -21,9 +23,37 @@
   </header>
 
   <!-- 1) ファーストビュー（狭め表示） -->
-  <section class="block">
-    <img src="/images/firstview.webp" alt="ファーストビュー" class="narrow-img" loading="eager">
-  </section>
+  <!-- 1) ファーストビュー：テキストオーバーレイ -->
+<section class="block hero" data-reveal>
+  <div class="hero-wrap">
+    <img src="/images/firstview.webp" alt="ファーストビュー" class="hero-img">
+    <div class="hero-overlay">
+      <p class="badge-hero">完全個別 × 週次コーチング</p>
+      <h1 class="hero-title">
+        志望校から逆算する<br>
+        <span id="hero-rotate">合格設計</span>
+      </h1>
+      <p class="hero-sub">あなた専用の学習計画と伴走指導で、最短で合格へ。</p>
+      <a href="#form" class="hero-cta cta-link">無料相談（0円）</a>
+    </div>
+  </div>
+</section>
+
+<!-- KPIストリップ：数字で伝えるインパクト -->
+<section class="block kpis" data-reveal>
+  <div class="kpi">
+    <div class="kpi-num">97%</div>
+    <div class="kpi-lbl">無料相談 満足度</div>
+  </div>
+  <div class="kpi">
+    <div class="kpi-num">92%</div>
+    <div class="kpi-lbl">週次課題 実行率</div>
+  </div>
+  <div class="kpi">
+    <div class="kpi-num">4.2h</div>
+    <div class="kpi-lbl">自習室 平均/日</div>
+  </div>
+</section>
 
   <!-- 2) CTA（apply） -->
   <section class="cta block">
