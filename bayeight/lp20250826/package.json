@@ -1,0 +1,7 @@
+{
+  "name": "genronkai-lp",
+  "private": true,
+  "dependencies": {
+    "googleapis": "^130.0.0"
+  }
+}

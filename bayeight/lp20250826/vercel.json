@@ -1,0 +1,8 @@
+{
+  "rewrites": [
+    { "source": "/", "destination": "/bayeight/lp20250826/" }
+  ],
+  "functions": {
+    "api/**/*": { "runtime": "nodejs20.x" }
+  }
+}
