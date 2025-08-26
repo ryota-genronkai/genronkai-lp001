@@ -449,7 +449,7 @@ header.block{ position: relative; z-index: 4; }
 .hero-overlay{
   display: grid;
   place-content: end center;   /* 下寄せ */
-  gap: 100px;
+  gap: 10px;
   padding-top: 0;
   padding-bottom: var(--hero-bottom-pad);  /* ここで「完全個別…」以降をもっと下げる */
   background: linear-gradient(0deg, rgba(0,0,0,.42),
@@ -461,3 +461,15 @@ header.block{ position: relative; z-index: 4; }
 .hero-overlay .page-headline{ display: none !important; }  /* 「ママ友が羨む…」消す */
 .hero-cta{ display: none !important; }                     /* ヒーロー内の「無料相談0円」消す */
 .sticky-cta{ display: none !important; }                   /* もし下固定バーが出ている場合も消す */
+
+header.block { position: relative; z-index: 4; }
+@media (min-width:1024px){ header.block { margin-bottom: -150px !important; } }
+@media (min-width:768px) and (max-width:1023.98px){ header.block { margin-bottom: -96px !important; } }
+@media (max-width:767.98px){ header.block { margin-bottom: -48px !important; } }
+
+/* ここがポイント：白背景を“消した風”に見せる */
+header.block img {
+  mix-blend-mode: multiply;   /* 白が背景に溶ける（黒系ロゴ向け） */
+  opacity: .96;               /* 少しだけ透かすとさらに自然 */
+  display: block;
+}
