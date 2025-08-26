@@ -303,59 +303,63 @@ body { font-family: system-ui, -apple-system, "Helvetica Neue", Arial, "Noto San
 .proof-title {
   white-space: nowrap;
   overflow: hidden;
-  text-overflow: ellipsis;      /* 幅が極端に狭い端末での安全策 */
-  font-size: clamp(16px, 3.6vw, 26px); /* 文字を少し小さめに自動調整 */
+  text-overflow: ellipsis;
+  font-size: clamp(15px, 3.2vw, 24px); /* さらに収まり重視に */
   letter-spacing: .01em;
 }
 
+
 /* === 在校生の声：ファンシーなカードにして細長さを解消 === */
+/* タイルレイアウト：幅を固定寄りにして中央寄せ */
 .voice-cards {
   display: grid;
-  gap: 14px;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  justify-items: center;          /* カードを中央寄せ */
+  gap: 16px;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 320px));
+  justify-content: center;     /* 行全体を中央寄せ */
+  justify-items: center;       /* 各カードを中央に */
 }
 .voice-card {
-  position: relative;
-  max-width: 320px;               /* 細長くならない上限幅 */
   width: 100%;
+  max-width: 320px;            /* 伸びすぎ防止 */
   padding: 16px 16px 14px;
   border-radius: 16px;
   border: 1px solid #efe8ff;
   background:
     radial-gradient(140% 140% at 0% 0%, #ffffff 0%, #fafcff 45%, #f4f8ff 100%);
-  box-shadow: 0 8px 20px rgba(0,0,0,.04);
+  box-shadow: 0 10px 24px rgba(0,0,0,.06);
+  position: relative;
 }
-/* 大きめカギカッコの水色飾り */
-.voice-card::before {
-  content: "“";
+/* きらり装飾をほんのり */
+.voice-card::after {
+  content: "✨";
   position: absolute;
-  top: -10px; left: 12px;
-  font-family: Georgia, serif;
-  font-size: 64px; line-height: 1;
-  color: rgba(0,160,233,.18);
+  right: 10px; top: -10px;
+  font-size: 18px; opacity: .6;
 }
-/* コメント文字を少し読みやすく */
 .voice-card blockquote { margin: 0 0 10px; color: #1d2430; font-size: 14.5px; }
-.voice-card figcaption { color: #556; font-size: 12.5px; display: flex; align-items: center; gap: 8px; }
+.voice-card figcaption { color: #556; font-size: 12.5px; display:flex; align-items:center; gap:8px; }
 .voice-card figcaption::before { content: "🎓"; }
 
 /* === FAQ：折りたたみが直感的に分かるUI === */
 .faq .qa { transition: border-color .2s, box-shadow .2s, background-color .2s; }
 .faq summary {
-  position: relative;
-  padding-right: 28px;          /* 右端にアイコン領域 */
-  cursor: pointer;
+  background: #fff;
+  border-radius: 10px;
+  padding: 10px 34px 10px 12px;
+  border: 1px solid #e6eef8;
 }
-.faq summary::after {           /* ▶ マーカー */
+.faq .qa[open] summary { background: #f7fbff; border-color: #d6ecff; }
+.faq summary:hover { background: #f9fbff; }
+
+/* ▶ をより大きく分かりやすく */
+.faq summary::after {
   content: "▸";
   position: absolute;
-  right: 4px; top: 50%; transform: translateY(-50%) rotate(0deg);
-  color: #00a0e9; font-size: 16px; transition: transform .2s ease;
+  right: 10px; top: 50%;
+  transform: translateY(-50%) rotate(0deg);
+  color: #00a0e9; font-size: 18px; transition: transform .2s ease;
 }
-.faq .qa[open] summary::after { transform: translateY(-50%) rotate(90deg); } /* ▼ に回転 */
-.faq .qa:hover { box-shadow: 0 6px 18px rgba(0,0,0,.06); }
-.faq .qa[open] { border-color: #d6ecff; background: #f7fbff; }
+.faq .qa[open] summary::after { transform: translateY(-50%) rotate(90deg); }
 
 /* === フッターの前後余白を拡大（申込ブロックとくっつかないように） === */
 .form-wrap { margin-bottom: 46px; }                 /* 申込フォームの下に余白追加 */
@@ -366,3 +370,19 @@ body { font-family: system-ui, -apple-system, "Helvetica Neue", Arial, "Noto San
   background: #fafafa;
 }
 
+/* ヒーロー内の重なり見出しを消す（バッジ/タイトル/サブ） */
+.hero-overlay .badge-hero,
+.hero-overlay .hero-title,
+.hero-overlay .hero-sub { display: none !important; }
+
+/* 上のヘッダーを下に被せる（PCで強め、SPは控えめ） */
+.page-headline {
+  position: relative;
+  z-index: 3;
+  text-align: center;
+  margin: 16px 0 -28px;           /* ここで下に重ねる（負のマージン） */
+  line-height: 1.1;
+}
+@media (min-width: 768px) {
+  .page-headline { margin: 24px 0 -56px; } /* PCではさらに被せる */
+}
