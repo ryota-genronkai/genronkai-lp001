@@ -403,3 +403,31 @@ body { font-family: system-ui, -apple-system, "Helvetica Neue", Arial, "Noto San
 .hero-overlay { display: grid; gap: 8px; }
 
 .hero-brand { display: none !important; }
+
+/* ヘッダー画像を少し下に“垂らす”＝下に重ねる */
+header.block{
+  position: relative;
+  z-index: 4;          /* ヒーローより前面 */
+}
+@media (min-width: 768px){
+  header.block{ margin-bottom: -56px; }  /* PCはしっかり重ねる */
+}
+@media (max-width: 767.98px){
+  header.block{ margin-bottom: -28px; }  /* SPは控えめに重ねる */
+}
+
+/* Hero CTA を消す */
+.hero-cta{ display: none !important; }
+
+/* オーバーレイの内容を“下寄せ”にして余白を足す（主にPC） */
+@media (min-width: 768px){
+  .hero-overlay{
+    display: grid;
+    place-content: end center;                 /* 下寄せ */
+    gap: 8px;
+    padding-bottom: clamp(28px, 10vw, 96px);   /* 下にゆとり */
+  }
+}
+
+/* Hero の重なり見出し（page-headline）だけ消す */
+.hero-overlay .page-headline{ display: none !important; }
