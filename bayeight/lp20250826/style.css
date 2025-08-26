@@ -431,3 +431,33 @@ header.block{
 
 /* Hero の重なり見出し（page-headline）だけ消す */
 .hero-overlay .page-headline{ display: none !important; }
+
+/* ==== FINAL overrides (smart & minimal) ==== */
+:root{
+  /* 調整用トークン：ここだけ触れば全体の雰囲気を微調整できます */
+  --header-overlap-pc: -96px;   /* PCでヘッダーをどれだけ下に被せるか */
+  --header-overlap-sp: -48px;   /* SPでの被せ量 */
+  --hero-bottom-pad: clamp(56px, 12vw, 140px); /* ヒーロー内コンテンツの下余白＝さらに下げる */
+}
+
+/* 1) 一番上のヘッダーを more 重ねる（firstview に深めに被せる） */
+header.block{ position: relative; z-index: 4; }
+@media (min-width:768px){ header.block{ margin-bottom: var(--header-overlap-pc); } }
+@media (max-width:767.98px){ header.block{ margin-bottom: var(--header-overlap-sp); } }
+
+/* 2) ヒーローのオーバーレイ配置を “下寄せ＋さらに下へ” */
+.hero-overlay{
+  display: grid;
+  place-content: end center;   /* 下寄せ */
+  gap: 10px;
+  padding-top: 0;
+  padding-bottom: var(--hero-bottom-pad);  /* ここで「完全個別…」以降をもっと下げる */
+  background: linear-gradient(0deg, rgba(0,0,0,.42),
+                                   rgba(0,0,0,.12) 40%,
+                                   rgba(0,0,0,0) 100%);
+}
+
+/* 3) 要望どおり非表示にする要素 */
+.hero-overlay .page-headline{ display: none !important; }  /* 「ママ友が羨む…」消す */
+.hero-cta{ display: none !important; }                     /* ヒーロー内の「無料相談0円」消す */
+.sticky-cta{ display: none !important; }                   /* もし下固定バーが出ている場合も消す */
