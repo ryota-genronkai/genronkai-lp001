@@ -497,3 +497,45 @@ header.block img {
 .hero-cta,
 .sticky-cta,
 .sticky-cta .cta-link { display: none !important; visibility: hidden !important; }
+
+/* --- 1) ヘッダーを透過＆ファーストビューにだけ重ねる --- */
+header.block{
+  background: transparent !important;    /* 透過 */
+  position: relative;
+  z-index: 2;                            /* ヒーローより少し上 */
+  margin-bottom: -150px;                 /* ここは好みの被せ量（PC） */
+}
+@media (max-width: 1023.98px){
+  header.block{ margin-bottom: -80px; }  /* タブ/スマホは控えめ */
+}
+
+/* ロゴ画像が白背景なら“なじませる” */
+header.block img{
+  mix-blend-mode: multiply;
+  opacity: .96;
+  display: block;
+}
+
+/* ヒーロー側の積層を固定（ヘッダーより下） */
+.hero{ position: relative; z-index: 1; }
+
+/* --- 2) フォームや以下のセクションを確実に前面に出す --- */
+main, .form-wrap, .form{
+  position: relative;
+  z-index: 3;          /* ヘッダー(=2)より前に */
+}
+
+/* 念のため送信ボタン単体も前面に */
+.submit-btn{
+  position: relative;
+  z-index: 4;
+}
+
+/* --- 3) 余計な“全体を覆う”要素があればクリック透過 --- */
+/* （ヒーローのオーバーレイが下まで伸びている場合の保険） */
+.hero-overlay{
+  pointer-events: none;         /* テキスト/ボタンには inline で pointer-events:auto を */
+}
+.hero-overlay a, .hero-overlay button{
+  pointer-events: auto;
+}
