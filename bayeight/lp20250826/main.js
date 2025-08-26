@@ -73,29 +73,51 @@
             const body = new URLSearchParams();
             for (const [k, v] of fd.entries()) body.append(k, v);
 
+            // 10秒タイムアウト
+            const ac = new AbortController();
+            const t = setTimeout(() => ac.abort(), 10000);
+
             const res = await fetch('/api/submit', {
                 method: 'POST',
+                // ← URLSearchParams を渡すと自動で Content-Type が付くので明示しなくてもOK
+                // もし残すならこのままでも可
                 headers: { 'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8' },
-                body
+                body,
+                signal: ac.signal,
             });
 
-            if (!res.ok) throw new Error(`HTTP ${res.status}`);
+            clearTimeout(t);
+
+            // 本文をテキストで必ず読む（エラー時の中身を見たい）
+            let text = '';
+            try { text = await res.text(); } catch { }
+
+            // 可能なら JSON も試す（APIが詳細返している場合）
+            let j = null;
+            try { j = JSON.parse(text); } catch { }
+
+            if (!res.ok || (j && j.ok === false)) {
+                const msg =
+                    (j && (j.error || j.message)) ||
+                    (text && text.slice(0, 500)) ||
+                    `HTTP ${res.status}`;
+                throw new Error(msg);
+            }
 
             // 成功処理
             form.reset();
             if (toast) {
                 toast.hidden = false;
-                // トーストを見える位置へ（任意）
                 try { toast.scrollIntoView({ behavior: 'smooth', block: 'nearest' }); } catch { }
                 setTimeout(() => (toast.hidden = true), 3000);
             }
         } catch (err) {
-            console.error(err);
-            alert('送信に失敗しました。時間をおいて再度お試しください。');
+            console.error('[submit error]', err);
+            alert(`送信に失敗しました。\n${String(err.message || err).slice(0, 300)}`);
         } finally {
             if (btn) { btn.disabled = false; btn.textContent = originalLabel; }
         }
-    });
+
 })();
 
 // ========== 4) ヒーローの回転ワード ==========
