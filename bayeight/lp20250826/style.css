@@ -94,3 +94,45 @@ body { font-family: system-ui, -apple-system, "Helvetica Neue", Arial, "Noto San
   .form .grid{ grid-template-columns:1fr; }
   .form .grid .col-2{ grid-column:auto; }
 }
+
+/* === Compact (約1/2スケール) : 主にPCで効かせる === */
+@media (min-width: 768px) {
+  /* コンテナ幅を 1080px → 560px に縮小 */
+  .block { max-width: 560px; padding: 0 10px; }
+  /* ヒーロー/ヘッダーなど narrow-img をさらに狭く */
+  .narrow-img { max-width: 560px; }
+
+  /* 余白・ボタンを控えめに */
+  .cta { padding: 20px 0; }
+  .btn { width: 220px; } /* 320 → 220 */
+
+  /* 見出しや文字サイズを少しダウン */
+  .sec-ttl { font-size: 20px; margin: 16px 0 8px; } /* 24 → 20 */
+  .promo { padding: 20px 8px 12px; }
+  .promo-big { font-size: clamp(18px, 2.4vw, 22px); } /* だいぶ控えめに */
+  .promo-small { font-size: 11px; }
+
+  /* ギャラリーの間隔を詰める */
+  .gallery { gap: 8px; }
+
+  /* 強み（cols-3）はそのまま3列：幅560pxなら1枚 ~180pxで“半分感”ちょうど良し */
+
+  /* 在校生の声はPCでも2列キープ（小さめカード） */
+  .voice-cards { gap: 12px; grid-template-columns: 1fr 1fr; }
+
+  /* 合格実績（cols-2）はそのまま2列でOK（1枚~270px） */
+
+  /* フォームもコンパクトに */
+  .form { padding: 12px; border-radius: 12px; }
+  .form .grid { gap: 10px; }
+  .form input, .form textarea, .form select {
+    padding: 10px;            /* 12 → 10 */
+    font-size: 15px;          /* 16 → 15 */
+    border-radius: 8px;       /* 10 → 8 */
+  }
+  .badge { padding: 2px 6px; font-size: 11px; } /* 必須/任意バッジも少し小さく */
+  .submit-btn { padding: 10px 14px; }           /* 12→10 */
+}
+
+/* 余白が詰まりすぎな箇所の微調整（オファー画像の間隔） */
+.stack-vert { gap: 16px; } /* 20→16（すでに詰めているので控えめに） */
