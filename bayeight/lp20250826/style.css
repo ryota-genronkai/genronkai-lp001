@@ -263,3 +263,106 @@ body { font-family: system-ui, -apple-system, "Helvetica Neue", Arial, "Noto San
 
 /* 既に導入済みの“ヒーロー下寄せ”と共存OK */
 
+/* === HERO：上部を白フェードさせてロゴ/テキストを溶け込ませる === */
+.hero .hero-wrap { position: relative; }
+.hero .hero-wrap::before {
+  content: "";
+  position: absolute;
+  left: 0; right: 0; top: 0;
+  height: 42%;                           /* 上から4割を白グラデで薄く */
+  background: linear-gradient(to bottom,
+    rgba(255,255,255,0.92),
+    rgba(255,255,255,0.60) 35%,
+    rgba(255,255,255,0.00) 100%
+  );
+  z-index: 1; pointer-events: none;
+}
+/* ロゴバッジは背景を消して“浮き”を無くす（影だけ残す） */
+.hero-brand {
+  background: transparent !important;
+  border: 0 !important;
+  box-shadow: none !important;
+  backdrop-filter: none !important;
+}
+.hero-brand img { filter: drop-shadow(0 2px 4px rgba(0,0,0,.18)); }
+
+/* 既存のヒーロー下寄せグラデは少し弱めに（黒感を減らす） */
+.hero-overlay {
+  background: linear-gradient(0deg,
+    rgba(0,0,0,0.35),
+    rgba(0,0,0,0.12) 35%,
+    rgba(0,0,0,0.00) 100%
+  );
+  z-index: 2;
+}
+
+/* === KPI とヒーローの距離を詰める === */
+.kpis { margin-top: 10px !important; }   /* PC/スマホ共に短め */
+
+/* === 見出し「だから得られる…」を1行固定（改行禁止） === */
+.proof-title {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;      /* 幅が極端に狭い端末での安全策 */
+  font-size: clamp(16px, 3.6vw, 26px); /* 文字を少し小さめに自動調整 */
+  letter-spacing: .01em;
+}
+
+/* === 在校生の声：ファンシーなカードにして細長さを解消 === */
+.voice-cards {
+  display: grid;
+  gap: 14px;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  justify-items: center;          /* カードを中央寄せ */
+}
+.voice-card {
+  position: relative;
+  max-width: 320px;               /* 細長くならない上限幅 */
+  width: 100%;
+  padding: 16px 16px 14px;
+  border-radius: 16px;
+  border: 1px solid #efe8ff;
+  background:
+    radial-gradient(140% 140% at 0% 0%, #ffffff 0%, #fafcff 45%, #f4f8ff 100%);
+  box-shadow: 0 8px 20px rgba(0,0,0,.04);
+}
+/* 大きめカギカッコの水色飾り */
+.voice-card::before {
+  content: "“";
+  position: absolute;
+  top: -10px; left: 12px;
+  font-family: Georgia, serif;
+  font-size: 64px; line-height: 1;
+  color: rgba(0,160,233,.18);
+}
+/* コメント文字を少し読みやすく */
+.voice-card blockquote { margin: 0 0 10px; color: #1d2430; font-size: 14.5px; }
+.voice-card figcaption { color: #556; font-size: 12.5px; display: flex; align-items: center; gap: 8px; }
+.voice-card figcaption::before { content: "🎓"; }
+
+/* === FAQ：折りたたみが直感的に分かるUI === */
+.faq .qa { transition: border-color .2s, box-shadow .2s, background-color .2s; }
+.faq summary {
+  position: relative;
+  padding-right: 28px;          /* 右端にアイコン領域 */
+  cursor: pointer;
+}
+.faq summary::after {           /* ▶ マーカー */
+  content: "▸";
+  position: absolute;
+  right: 4px; top: 50%; transform: translateY(-50%) rotate(0deg);
+  color: #00a0e9; font-size: 16px; transition: transform .2s ease;
+}
+.faq .qa[open] summary::after { transform: translateY(-50%) rotate(90deg); } /* ▼ に回転 */
+.faq .qa:hover { box-shadow: 0 6px 18px rgba(0,0,0,.06); }
+.faq .qa[open] { border-color: #d6ecff; background: #f7fbff; }
+
+/* === フッターの前後余白を拡大（申込ブロックとくっつかないように） === */
+.form-wrap { margin-bottom: 46px; }                 /* 申込フォームの下に余白追加 */
+.foot {
+  margin-top: 28px;
+  padding: 44px 0 64px;                              /* 上下ゆったり */
+  border-top: 1px solid #eee;
+  background: #fafafa;
+}
+
