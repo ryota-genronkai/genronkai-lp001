@@ -14,6 +14,12 @@
   <script defer src="/main.js"></script>
 </head>
 <body>
+
+  <!-- 0) ヘッダー帯 -->
+  <header class="block">
+    <img src="/images/head.webp" alt="現論会ヘッダー" class="full" loading="eager">
+  </header>
+
   <!-- 1) ファーストビュー -->
   <section class="block">
     <img src="/images/firstview.webp" alt="ファーストビュー" class="full" loading="eager">
@@ -31,14 +37,16 @@
     <img src="/images/emotion.webp" alt="感情訴求" class="full" loading="lazy">
   </section>
 
-  <!-- 4) 強み1〜6 -->
+  <!-- 4) 強み1〜6（スマホ1／TB2／PC3列） -->
   <section class="block">
-    <img src="/images/strength1.webp" alt="現論会の強み1" class="full" loading="lazy">
-    <img src="/images/strength2.webp" alt="現論会の強み2" class="full" loading="lazy">
-    <img src="/images/strength3.webp" alt="現論会の強み3" class="full" loading="lazy">
-    <img src="/images/strength4.webp" alt="現論会の強み4" class="full" loading="lazy">
-    <img src="/images/strength5.webp" alt="現論会の強み5" class="full" loading="lazy">
-    <img src="/images/strength6.webp" alt="現論会の強み6" class="full" loading="lazy">
+    <div class="gallery cols-3">
+      <img src="/images/strength1.webp" alt="現論会の強み1" loading="lazy">
+      <img src="/images/strength2.webp" alt="現論会の強み2" loading="lazy">
+      <img src="/images/strength3.webp" alt="現論会の強み3" loading="lazy">
+      <img src="/images/strength4.webp" alt="現論会の強み4" loading="lazy">
+      <img src="/images/strength5.webp" alt="現論会の強み5" loading="lazy">
+      <img src="/images/strength6.webp" alt="現論会の強み6" loading="lazy">
+    </div>
   </section>
 
   <!-- 5) RTB（選ばれる理由） -->
@@ -53,10 +61,35 @@
     </a>
   </section>
 
-  <!-- 7) 合格実績1〜2 -->
+  <!-- ★ NEW: 実績＆声セクションの導入見出し -->
+  <section class="block proof-intro">
+    <h2 class="proof-title">だから得られる、圧倒的実績と生の声！</h2>
+  </section>
+
+  <!-- ★ NEW: 在校生の声（スマホ1／PC2列） -->
   <section class="block">
-    <img src="/images/evidence1.webp" alt="合格実績1" class="full" loading="lazy">
-    <img src="/images/evidence2.webp" alt="合格実績2" class="full" loading="lazy">
+    <div class="voice-cards">
+      <figure class="voice-card">
+        <blockquote>
+          とにかく自習室がいつでも使えるため、勉強時間を増やすことができたのが嬉しいです。自分で進めていた時よりも、やることが明確で着実にステップを踏んでいけるため、学習効率も上がりました！
+        </blockquote>
+        <figcaption>早稲田大学志望・高校3年</figcaption>
+      </figure>
+      <figure class="voice-card">
+        <blockquote>
+          担当コーチは部活の予定も考慮しながら毎週の学習計画を作ってくれるので、無理なく進めることができます。高校1年生の頃からずっと通っていますが、時間の使い方がとても上手くなったと思います！
+        </blockquote>
+        <figcaption>京都大学志望・高校2年</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <!-- 7) 合格実績1〜2（スマホ1／PC2列） -->
+  <section class="block">
+    <div class="gallery cols-2">
+      <img src="/images/evidence1.webp" alt="合格実績1" loading="lazy">
+      <img src="/images/evidence2.webp" alt="合格実績2" loading="lazy">
+    </div>
   </section>
 
   <!-- 8) FAQ 折りたたみ -->
@@ -116,26 +149,32 @@
   <section id="form" class="form-wrap block">
     <h2 class="sec-ttl sr-only">無料相談のお申込み</h2>
 
-    <!-- 応答を受け取る隠しiframe（ページ遷移しないため） -->
     <iframe name="hidden_iframe" id="hidden_iframe" style="display:none;"></iframe>
 
     <form id="lead-form" class="form" method="post" target="hidden_iframe"
           action="https://script.google.com/macros/s/【あなたのGAS exec URL】/exec">
       <div class="grid">
         <label>お名前<span class="req">必須</span>
-          <input type="text" name="name" required>
+          <input type="text" name="name" required placeholder="例）山田 太郎">
         </label>
-        <label>学年
-          <input type="text" name="grade" placeholder="高1 / 高2 / 高3 など">
+        <label>学年<span class="req">必須</span>
+          <select name="grade" required>
+            <option value="" hidden>選択してください</option>
+            <option>中学生</option>
+            <option>高校1年生</option>
+            <option>高校2年生</option>
+            <option>高校3年生</option>
+            <option>既卒生</option>
+          </select>
         </label>
-        <label>電話番号
-          <input type="tel" name="phone" inputmode="tel">
+        <label>電話番号<span class="req">必須</span>
+          <input type="tel" name="phone" required inputmode="tel" placeholder="例）080-1234-5678">
         </label>
         <label>メールアドレス<span class="req">必須</span>
-          <input type="email" name="email" required>
+          <input type="email" name="email" required placeholder="例）genronkai@gmail.com">
         </label>
-        <label class="col-2">ご相談内容
-          <textarea name="message" rows="4" placeholder="ご相談や気になる点があればご記入ください。"></textarea>
+        <label class="col-2">ご相談内容（任意）
+          <textarea name="message" rows="4" placeholder="例）通っている高校や目指している大学、現状困っていること など"></textarea>
         </label>
       </div>
 
@@ -147,7 +186,6 @@
       <p class="form-note">送信後、担当よりメールにてご連絡いたします。</p>
     </form>
 
-    <!-- サクセス表示 -->
     <div id="form-toast" class="toast" hidden>
       送信ありがとうございました。担当者からご連絡いたします。
     </div>
