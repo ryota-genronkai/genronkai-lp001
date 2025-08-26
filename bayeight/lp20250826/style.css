@@ -449,7 +449,7 @@ header.block{ position: relative; z-index: 4; }
 .hero-overlay{
   display: grid;
   place-content: end center;   /* 下寄せ */
-  gap: 10px;
+  gap: 100px;
   padding-top: 0;
   padding-bottom: var(--hero-bottom-pad);  /* ここで「完全個別…」以降をもっと下げる */
   background: linear-gradient(0deg, rgba(0,0,0,.42),
