@@ -27,6 +27,10 @@
 <section class="block hero" data-reveal>
   <div class="hero-wrap">
     <img src="/images/firstview.webp" alt="ファーストビュー" class="hero-img">
+    <!-- 画像の上に重ねるロゴバッジ -->
+<div class="hero-brand" aria-label="現論会ロゴ">
+  <img src="/images/header.webp" alt="現論会">
+</div>
     <div class="hero-overlay">
       <p class="badge-hero">完全個別 × 週次コーチング</p>
       <h1 class="hero-title">
@@ -183,48 +187,42 @@
 
     <iframe name="hidden_iframe" id="hidden_iframe" style="display:none;"></iframe>
 
-   <form id="lead-form" class="form" method="post" target="hidden_iframe"
-      action="/api/submit" novalidate>
+   <form id="lead-form" class="form" method="post" target="hidden_iframe" action="/api/submit" novalidate>
+  <div class="grid">
+    <label>
+      <span class="label-row"><span class="label-name">お名前</span><span class="chip req">必須</span></span>
+      <input type="text" name="name" required placeholder="例）山田 太郎">
+    </label>
 
-      <div class="grid">
-        <label>お名前 <span class="badge req">必須</span>
-          <input type="text" name="name" required placeholder="例）山田 太郎">
-        </label>
+    <label>
+      <span class="label-row"><span class="label-name">学年</span><span class="chip req">必須</span></span>
+      <select name="grade" required>
+        <option value="" hidden>選択してください</option>
+        <option>中学生</option><option>高校1年生</option><option>高校2年生</option>
+        <option>高校3年生</option><option>既卒生</option>
+      </select>
+    </label>
 
-        <label>学年 <span class="badge req">必須</span>
-          <select name="grade" required>
-            <option value="" hidden>選択してください</option>
-            <option>中学生</option>
-            <option>高校1年生</option>
-            <option>高校2年生</option>
-            <option>高校3年生</option>
-            <option>既卒生</option>
-          </select>
-        </label>
+    <label>
+      <span class="label-row"><span class="label-name">電話番号</span><span class="chip req">必須</span></span>
+      <input type="tel" name="phone" required inputmode="tel" placeholder="例）080-1234-5678"
+             pattern="^(0\\d{1,4}-?\\d{2,4}-?\\d{3,4}|\\d{10,11})$"
+             title="電話番号を半角数字で入力してください（例：080-1234-5678）">
+    </label>
 
-        <label>電話番号 <span class="badge req">必須</span>
-          <input type="tel" name="phone" required inputmode="tel"
-                 placeholder="例）080-1234-5678"
-                 pattern="^(0\d{1,4}-?\d{2,4}-?\d{3,4}|\d{10,11})$"
-                 title="電話番号を半角数字で入力してください（例：080-1234-5678）">
-        </label>
+    <label>
+      <span class="label-row"><span class="label-name">メールアドレス</span><span class="chip req">必須</span></span>
+      <input type="email" name="email" required placeholder="例）student@example.com">
+    </label>
 
-        <label>メールアドレス <span class="badge req">必須</span>
-          <input type="email" name="email" required placeholder="例）student@example.com">
-        </label>
+    <label class="col-2">
+      <span class="label-row"><span class="label-name">ご相談内容</span><span class="chip opt">任意</span></span>
+      <textarea name="message" rows="4" placeholder="例）志望校と現状、困っていること など"></textarea>
+    </label>
+  </div>
 
-        <label class="col-2">ご相談内容 <span class="badge opt">任意</span>
-          <textarea name="message" rows="4" placeholder="例）志望校と現状、困っていること など"></textarea>
-        </label>
-      </div>
+</form>
 
-      <!-- UTM -->
-      <input type="hidden" name="utm_source" id="utm_source">
-      <input type="hidden" name="utm_campaign" id="utm_campaign">
-
-      <button type="submit" class="submit-btn">送信する</button>
-      <p class="form-note">送信後、担当よりメールにてご連絡いたします。</p>
-    </form>
 
     <div id="form-toast" class="toast" hidden>
       送信ありがとうございました。担当者からご連絡いたします。
