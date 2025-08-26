@@ -481,7 +481,7 @@ header.block img {
 
 /* 2) ヒーローのオーバーレイを“もっと下”へ（PC強め / TB中 / SP控えめ） */
 @media (min-width:1024px) {
-  .hero-overlay { place-content: end center !important; padding-bottom: 200px !important; }
+  .hero-overlay { place-content: end center !important; padding-bottom: 500px !important; }
 }
 @media (min-width:768px) and (max-width:1023.98px) {
   .hero-overlay { place-content: end center !important; padding-bottom: 140px !important; }
