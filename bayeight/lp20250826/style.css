@@ -625,3 +625,63 @@ header.block img{
 /* オーバーレイはクリックを邪魔しない */
 .hero-overlay{ pointer-events:none; }
 .hero-overlay a, .hero-overlay button{ pointer-events:auto; }
+
+/* ===== Hero：上部を白グラデでなじませる（再有効化） ===== */
+.hero .hero-wrap{ position: relative; }
+.hero .hero-wrap::before{
+  content:"";
+  position:absolute; left:0; right:0; top:0;
+  height:42%;
+  background: linear-gradient(
+    to bottom,
+    rgba(255,255,255,0.95),
+    rgba(255,255,255,0.60) 35%,
+    rgba(255,255,255,0.00) 100%
+  );
+  z-index: 1;              /* 画像の上、テキストの下 */
+  pointer-events: none;
+}
+/* テキストレイヤーはグラデの上に */
+.hero-overlay{ position:absolute; inset:0; z-index:2; }
+
+/* ===== ヘッダーを強めに被せる（透過版に最適化） ===== */
+header.block{
+  background: transparent;
+  position: relative;
+  z-index: 3;               /* ヒーローより前 */
+  margin-bottom: -150px;    /* PCでしっかり重ねる（数値は好みで） */
+}
+@media (max-width:1023.98px){
+  header.block{ margin-bottom: -80px; } /* TB/SPは控えめ */
+}
+
+/* ===== 送信ボタン：見た目アップ＆状態管理 ===== */
+.submit-btn{
+  display:inline-flex; align-items:center; justify-content:center;
+  gap:8px;
+  width:100%;
+  padding:12px 16px;
+  border:none; border-radius:12px;
+  font-weight:800; font-size:16px; letter-spacing:.02em;
+  background: linear-gradient(180deg, #00a0e9, #0086c1);
+  color:#fff;
+  box-shadow: 0 10px 24px rgba(0,160,233,.25);
+  cursor:pointer;
+  transition: transform .06s ease, box-shadow .2s ease, opacity .2s ease;
+}
+.submit-btn:hover{ transform: translateY(-1px); box-shadow:0 14px 28px rgba(0,160,233,.28); }
+.submit-btn:active{ transform: translateY(0); box-shadow:0 8px 18px rgba(0,160,233,.20); }
+.submit-btn:focus-visible{
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(0,160,233,.25), 0 10px 24px rgba(0,160,233,.25);
+}
+.submit-btn[disabled]{
+  opacity:.6; cursor: not-allowed;
+  background: linear-gradient(180deg, #9ccfe6, #86b8d0);
+  box-shadow:none; transform:none;
+}
+
+/* トーストの見た目を少しだけ整える */
+.toast{
+  font-weight:700; font-size:14px;
+}

@@ -1,77 +1,49 @@
-// bayeight/lp20250826/api/submit.js
-const { google } = require('googleapis');
+// api/submit.js  （Vercel Serverless Function）
+export default async function handler(req, res) {
+  if (req.method !== 'POST') return res.status(405).json({ ok: false, error: 'Method Not Allowed' });
 
-module.exports = async (req, res) => {
-    if (req.method !== 'POST') {
-        res.status(405).send('Method Not Allowed');
-        return;
+  try {
+    // x-www-form-urlencoded を読む
+    const raw = await streamToString(req);
+    const params = new URLSearchParams(raw);
+    const data = Object.fromEntries(params.entries());
+
+    // 必須チェック（念のためサーバ側でも）
+    for (const k of ['name', 'email', 'phone', 'grade']) {
+      if (!data[k]) return res.status(400).json({ ok: false, error: `Missing: ${k}` });
     }
 
-    // x-www-form-urlencoded を手動パース
-    const body = await new Promise((resolve) => {
-        let data = '';
-        req.on('data', (c) => (data += c));
-        req.on('end', () => resolve(data));
-    });
-    const params = new URLSearchParams(body);
+    // 付与情報
+    const payload = {
+      ...data,
+      _ts: new Date().toISOString(),
+      _ua: req.headers['user-agent'] || '',
+      _ip: req.headers['x-forwarded-for']?.split(',')[0]?.trim() || req.socket?.remoteAddress || '',
+    };
 
-    const row = [
-        new Date().toISOString(),
-        params.get('name') || '',
-        params.get('grade') || '',
-        params.get('phone') || '',
-        params.get('email') || '',
-        params.get('message') || '',
-        params.get('utm_source') || '',
-        params.get('utm_campaign') || '',
-    ];
-
-    try {
-        const auth = new google.auth.JWT(
-            process.env.GOOGLE_SA_EMAIL,
-            null,
-            (process.env.GOOGLE_SA_PRIVATE_KEY || '').replace(/\\n/g, '\n'),
-            ['https://www.googleapis.com/auth/spreadsheets']
-        );
-
-        const sheets = google.sheets({ version: 'v4', auth });
-        const spreadsheetId = process.env.GOOGLE_SHEETS_ID;
-        const sheetName = process.env.GOOGLE_SHEETS_TAB || 'responses';
-
-        // ヘッダーが無い時に自動付与（A1 先頭セル見て判断）
-        try {
-            await sheets.spreadsheets.values.get({
-                spreadsheetId,
-                range: `${sheetName}!A1:A1`,
-            });
-        } catch {
-            await sheets.spreadsheets.values.update({
-                spreadsheetId,
-                range: `${sheetName}!A1:H1`,
-                valueInputOption: 'RAW',
-                requestBody: {
-                    values: [[
-                        'timestamp', 'name', 'grade', 'phone', 'email', 'message', 'utm_source', 'utm_campaign'
-                    ]]
-                }
-            });
-        }
-
-        // 追記
-        await sheets.spreadsheets.values.append({
-            spreadsheetId,
-            range: `${sheetName}!A1`,
-            valueInputOption: 'RAW',
-            insertDataOption: 'INSERT_ROWS',
-            requestBody: { values: [row] },
-        });
-
-        // hidden iframe 用に軽いHTML返す
-        res.setHeader('Content-Type', 'text/html; charset=utf-8');
-        res.status(200).send('<!doctype html><meta charset="utf-8">OK');
-    } catch (err) {
-        console.error(err);
-        res.setHeader('Content-Type', 'text/html; charset=utf-8');
-        res.status(500).send('<!doctype html><meta charset="utf-8">NG');
+    // ===== 転送先A：Google Apps Script（→スプレッドシート） =====
+    const GAS_URL = https://script.google.com/macros/s/AKfycbwch-5Pgg5YXrC6uNR-4W8NMe3ufqOf41JMdVvruz5U85WUL20bJ6pa9oHVCkp6UEbwQw/exec
+    let gasResp = null;
+    if (GAS_URL) {
+      const r = await fetch(GAS_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+      });
+      gasResp = await safeJson(r);
     }
-};
+
+// ---- helpers ----
+function streamToString(req) {
+  return new Promise((resolve, reject) => {
+    let data = '';
+    req.setEncoding('utf8');
+    req.on('data', (chunk) => (data += chunk));
+    req.on('end', () => resolve(data));
+    req.on('error', reject);
+  });
+}
+
+async function safeJson(r) {
+  try { return await r.json(); } catch { return { ok: r.ok, status: r.status }; }
+}
