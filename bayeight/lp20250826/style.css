@@ -401,3 +401,5 @@ body { font-family: system-ui, -apple-system, "Helvetica Neue", Arial, "Noto San
 
 /* オーバーレイ内の並びを安定させる（念のため） */
 .hero-overlay { display: grid; gap: 8px; }
+
+.hero-brand { display: none !important; }
