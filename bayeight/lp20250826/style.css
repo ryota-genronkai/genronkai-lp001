@@ -386,3 +386,18 @@ body { font-family: system-ui, -apple-system, "Helvetica Neue", Arial, "Noto San
 @media (min-width: 768px) {
   .page-headline { margin: 24px 0 -56px; } /* PCではさらに被せる */
 }
+
+/* ===== Hero overlay: 強制表示に戻す ===== */
+.hero-overlay .badge-hero,
+.hero-overlay .hero-title,
+.hero-overlay .hero-sub,
+.hero-overlay .page-headline,
+.hero-overlay .hero-cta {
+  display: initial !important;   /* 以前の display:none を打ち消す */
+}
+
+/* もし .page-headline を上部で消していたら、その無効化 */
+.page-headline { display: initial !important; }
+
+/* オーバーレイ内の並びを安定させる（念のため） */
+.hero-overlay { display: grid; gap: 8px; }
