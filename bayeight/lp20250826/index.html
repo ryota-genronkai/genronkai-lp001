@@ -4,9 +4,9 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>現論会｜無料相談LP</title>
-  <meta name="description" content="個別コーチングで学習設計。週次の伴走指導で習慣化。まずは無料相談から。">
+  <meta name="description" content="個別コーチングで学習設計。毎週の伴走指導で習慣化。まずは無料相談から。">
   <meta property="og:title" content="現論会｜無料相談LP" />
-  <meta property="og:description" content="あなた専用の学習計画×週次コーチングで最短合格へ。" />
+  <meta property="og:description" content="あなた専用の学習計画×学習コーチングで最短合格へ。" />
   <meta property="og:type" content="website" />
   <meta property="og:image" content="/images/firstview.webp" />
   <link rel="preload" as="image" href="/images/firstview.webp">
@@ -29,7 +29,7 @@
     <img src="/images/firstview.webp" alt="ファーストビュー" class="hero-img">
     <!-- 画像の上に重ねるロゴバッジ -->
     <div class="hero-overlay">
-      <p class="badge-hero">完全個別 × 週次コーチング</p>
+      <p class="badge-hero">完全個別 × 学習コーチング</p>
       <h1 class="page-headline">ママ友が羨む<br>我が子への第一歩</h1>
       <h1 class="hero-title">
         志望校から逆算する<br>
@@ -48,7 +48,7 @@
   </div>
   <div class="kpi">
     <div class="kpi-num">92%</div>
-    <div class="kpi-lbl">週次課題 実行率</div>
+    <div class="kpi-lbl">毎週計画 実行率</div>
   </div>
   <div class="kpi">
     <div class="kpi-num">4.2h</div>
@@ -204,9 +204,15 @@
 
     <label>
       <span class="label-row"><span class="label-name">電話番号</span><span class="chip req">必須</span></span>
-      <input type="tel" name="phone" required inputmode="tel" placeholder="例）080-1234-5678"
-             pattern="^(0\\d{1,4}-?\\d{2,4}-?\\d{3,4}|\\d{10,11})$"
-             title="電話番号を半角数字で入力してください（例：080-1234-5678）">
+      <input
+  type="tel"
+  name="phone"
+  required
+  inputmode="tel"
+  placeholder="例）080-1234-5678"
+  pattern="^(0\d{1,4}[-\s]?\d{2,4}[-\s]?\d{3,4}|\d{10,11})$"
+  title="電話番号を正しく入力してください（例：080-1234-5678 もしくは 10〜11桁の数字）"
+/>
     </label>
 
     <label>
