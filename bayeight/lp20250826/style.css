@@ -473,3 +473,27 @@ header.block img {
   opacity: .96;               /* 少しだけ透かすとさらに自然 */
   display: block;
 }
+
+/* === FINAL OVERRIDE === */
+
+/* 1) 一番上のヘッダーはそのまま重ね（あなたは -150px が良かったとのこと） */
+@media (min-width:1024px){ header.block { margin-bottom: -150px !important; } }
+
+/* 2) ヒーローのオーバーレイを“もっと下”へ（PC強め / TB中 / SP控えめ） */
+@media (min-width:1024px) {
+  .hero-overlay { place-content: end center !important; padding-bottom: 200px !important; }
+}
+@media (min-width:768px) and (max-width:1023.98px) {
+  .hero-overlay { place-content: end center !important; padding-bottom: 140px !important; }
+}
+@media (max-width:767.98px) {
+  .hero-overlay { place-content: end center !important; padding-bottom: 80px !important; }
+}
+
+/* 3) 「ママ友が羨む…」は消す */
+.hero-overlay .page-headline { display: none !important; }
+
+/* 4) 「無料相談（0円）」を確実に消す（ヒーロー内と固定バーの両方） */
+.hero-cta,
+.sticky-cta,
+.sticky-cta .cta-link { display: none !important; visibility: hidden !important; }
