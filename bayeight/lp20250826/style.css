@@ -599,3 +599,29 @@ header.block img{
 
 /* もし fixed の下部CTAが残っていたら完全に無効化（誤爆防止） */
 .sticky-cta{ display:none !important; visibility:hidden !important; }
+
+/* ヒーローの上に、透明で重ねる */
+header.block{
+  background: transparent !important;
+  position: relative;
+  z-index: 4;                       /* ヒーローの上 */
+  margin-bottom: -150px !important; /* お好みの被せ量（PC） */
+}
+@media (max-width:1023.98px){
+  header.block{ margin-bottom: -80px !important; }
+}
+
+/* ヒーローの白フェードが“切り取り感”を出すので無効化 */
+.hero .hero-wrap::before{ display:none !important; }
+
+/* ロゴ画像の白地をなじませる：ブレンド＋ほんのり透過 */
+header.block img{
+  display:block;
+  mix-blend-mode: multiply;  /* 白は背景になじみ、黒は残る */
+  opacity: .95;              /* うっすら馴染ませる */
+  pointer-events: none;      /* クリックは下へ通す（念のため） */
+}
+
+/* オーバーレイはクリックを邪魔しない */
+.hero-overlay{ pointer-events:none; }
+.hero-overlay a, .hero-overlay button{ pointer-events:auto; }
