@@ -4,70 +4,78 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>現論会｜無料相談LP</title>
-  <meta name="description" content="現論会 青葉台・藤沢｜無料相談受付。あなた専用の学習計画を作ります。">
+  <meta name="description" content="現論会（青葉台・藤沢）｜無料相談受付中。あなた専用の学習計画を設計し、週次コーチングで伴走します。">
+  <meta property="og:title" content="現論会｜無料相談LP" />
+  <meta property="og:description" content="あなた専用の学習計画。週1コーチングで学習習慣を確立。" />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="./images/firstview.webp" />
+  <link rel="preload" as="image" href="./images/firstview.webp">
   <link rel="stylesheet" href="./style.css" />
 </head>
 <body>
   <!-- ヘッダー -->
-  <header>
-    <img src="/public/images/header.webp" alt="現論会" class="full">
+  <header class="block">
+    <img src="./images/header.webp" alt="現論会 ヘッダー" class="full" loading="eager">
   </header>
 
   <!-- ファーストビュー -->
-  <section>
-    <img src="/public/images/firstview.webp" alt="ファーストビュー" class="full">
+  <section class="block">
+    <img src="./images/firstview.webp" alt="ファーストビュー" class="full" loading="eager">
   </section>
 
   <!-- RTB（選ばれる理由） -->
-  <section>
-    <img src="/public/images/rtb.webp" alt="選ばれる理由" class="full">
+  <section class="block">
+    <img src="./images/rtb.webp" alt="選ばれる理由" class="full" loading="lazy">
   </section>
 
-  <!-- Offer -->
-  <section>
-    <img src="/public/images/offer1.webp" alt="オファー1" class="full">
-    <img src="/public/images/offer2.webp" alt="オファー2" class="full">
+  <!-- オファー -->
+  <section class="block">
+    <img src="./images/offer1.webp" alt="無料相談オファー1" class="full" loading="lazy">
+    <img src="./images/offer2.webp" alt="無料相談オファー2" class="full" loading="lazy">
   </section>
 
-  <!-- Strength -->
-  <section>
-    <img src="/public/images/strength1.webp" alt="強み1" class="full">
-    <img src="/public/images/strength2.webp" alt="強み2" class="full">
-    <img src="/public/images/strength3.webp" alt="強み3" class="full">
-    <img src="/public/images/strength4.webp" alt="強み4" class="full">
-    <img src="/public/images/strength5.webp" alt="強み5" class="full">
-    <img src="/public/images/strength6.webp" alt="強み6" class="full">
+  <!-- 強み -->
+  <section class="block">
+    <img src="./images/strength1.webp" alt="現論会の強み1" class="full" loading="lazy">
+    <img src="./images/strength2.webp" alt="現論会の強み2" class="full" loading="lazy">
+    <img src="./images/strength3.webp" alt="現論会の強み3" class="full" loading="lazy">
+    <img src="./images/strength4.webp" alt="現論会の強み4" class="full" loading="lazy">
+    <img src="./images/strength5.webp" alt="現論会の強み5" class="full" loading="lazy">
+    <img src="./images/strength6.webp" alt="現論会の強み6" class="full" loading="lazy">
   </section>
 
-  <!-- 実績 -->
-  <section>
-    <img src="/public/images/evidence1.webp" alt="合格実績1" class="full">
-    <img src="/public/images/evidence2.webp" alt="合格実績2" class="full">
+  <!-- 合格実績 -->
+  <section class="block">
+    <img src="./images/evidence1.webp" alt="合格実績1" class="full" loading="lazy">
+    <img src="./images/evidence2.webp" alt="合格実績2" class="full" loading="lazy">
   </section>
 
   <!-- 感情訴求 -->
-  <section>
-    <img src="/public/images/emotion.webp" alt="感情訴求" class="full">
+  <section class="block">
+    <img src="./images/emotion.webp" alt="感情訴求セクション" class="full" loading="lazy">
   </section>
 
   <!-- CTA -->
-  <section class="cta">
-    <a href="#form">
-      <img src="/public/images/apply.gif" alt="今すぐ申し込む" class="btn">
+  <section class="cta block">
+    <a href="#form" aria-label="無料相談フォームへ">
+      <img src="./images/apply.gif" alt="今すぐ申し込む" class="btn" loading="lazy">
     </a>
   </section>
 
   <!-- フォーム -->
-  <section id="form">
-    <h2>無料相談のお申込み</h2>
-    <iframe src="https://script.google.com/macros/s/【GASのexec URL】/exec"
-            frameborder="0"
-            style="width:100%;height:900px;"></iframe>
+  <section id="form" class="form-wrap block">
+    <h2 class="sr-only">無料相談のお申込み</h2>
+    <iframe
+      src="https://script.google.com/macros/s/【あなたのGAS exec URL】/exec"
+      title="無料相談フォーム"
+      style="width:100%; height:900px; border:0;"
+      loading="lazy"
+      referrerpolicy="no-referrer"
+    ></iframe>
   </section>
 
-  <footer>
+  <footer class="foot block">
     <small>© Genronkai / BayEight</small>
   </footer>
 </body>
 </html>
-
