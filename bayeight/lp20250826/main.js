@@ -1,4 +1,4 @@
-// UTM を hidden に格納
+// ========== 1) UTM を hidden に格納 ==========
 (function () {
     const qs = new URLSearchParams(location.search);
     const utmS = document.getElementById('utm_source');
@@ -7,28 +7,7 @@
     if (utmC && qs.get('utm_campaign')) utmC.value = qs.get('utm_campaign');
 })();
 
-// 送信トースト（hidden iframe 受信で表示）
-(function () {
-    const form = document.getElementById('lead-form');
-    const toast = document.getElementById('form-toast');
-    const hidden = document.getElementById('hidden_iframe');
-
-    if (form && hidden && toast) {
-        form.addEventListener('submit', () => {
-            const btn = form.querySelector('.submit-btn');
-            if (btn) { btn.disabled = true; btn.textContent = '送信中…'; }
-        });
-        hidden.addEventListener('load', () => {
-            if (toast.hasAttribute('hidden')) toast.removeAttribute('hidden');
-            setTimeout(() => toast.setAttribute('hidden', ''), 3500);
-            form.reset();
-            const btn = form.querySelector('.submit-btn');
-            if (btn) { btn.disabled = false; btn.textContent = '送信する'; }
-        });
-    }
-})();
-
-// #form へのスムーススクロール
+// ========== 2) #form へのスムーススクロール ==========
 (function () {
     document.querySelectorAll('a.cta-link[href^="#"]').forEach(a => {
         a.addEventListener('click', (e) => {
@@ -39,24 +18,25 @@
     });
 })();
 
-// ▼ 日本語のカスタムバリデーション
+// ========== 3) 日本語バリデーション & fetch送信 ==========
 (function () {
     const form = document.getElementById('lead-form');
     if (!form) return;
 
+    const toast = document.getElementById('form-toast');
+    const btn = form.querySelector('.submit-btn');
+
+    // --- カスタムメッセージ設定 ---
     const fields = {
         name: form.querySelector('input[name="name"]'),
         email: form.querySelector('input[name="email"]'),
         phone: form.querySelector('input[name="phone"]'),
         grade: form.querySelector('select[name="grade"]')
     };
+    const setMsg = (el, msg) => el && el.setCustomValidity(msg || '');
 
-    const setMsg = (el, msg) => { el.setCustomValidity(msg || ''); };
-
-    // 失敗時の日本語メッセージ
     Object.values(fields).forEach(el => {
         if (!el) return;
-
         el.addEventListener('invalid', () => {
             if (el.name === 'email') {
                 setMsg(el, el.validity.valueMissing ? 'メールアドレスは必須です' : '有効なメールアドレスを入力してください');
@@ -68,24 +48,57 @@
                 setMsg(el, 'お名前は必須です');
             }
         });
-
-        // 入力時はエラー解除
         el.addEventListener('input', () => setMsg(el, ''));
         el.addEventListener('change', () => setMsg(el, ''));
     });
 
-    // 送信前チェック（HTMLの novalidate と併用）
-    form.addEventListener('submit', (e) => {
-        if (!form.checkValidity()) {
-            e.preventDefault();
-            // 最初の不正項目へフォーカス
+    // --- 送信 ---
+    form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+
+        // ネイティブ検証（メッセージは上で上書き）
+        if (!form.reportValidity()) {
             const firstInvalid = form.querySelector(':invalid');
             if (firstInvalid) firstInvalid.focus();
+            return;
+        }
+
+        // 状態：送信中
+        const originalLabel = btn ? btn.textContent : '';
+        if (btn) { btn.disabled = true; btn.textContent = '送信中…'; }
+
+        try {
+            // form -> x-www-form-urlencoded
+            const fd = new FormData(form);
+            const body = new URLSearchParams();
+            for (const [k, v] of fd.entries()) body.append(k, v);
+
+            const res = await fetch('/api/submit', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8' },
+                body
+            });
+
+            if (!res.ok) throw new Error(`HTTP ${res.status}`);
+
+            // 成功処理
+            form.reset();
+            if (toast) {
+                toast.hidden = false;
+                // トーストを見える位置へ（任意）
+                try { toast.scrollIntoView({ behavior: 'smooth', block: 'nearest' }); } catch { }
+                setTimeout(() => (toast.hidden = true), 3000);
+            }
+        } catch (err) {
+            console.error(err);
+            alert('送信に失敗しました。時間をおいて再度お試しください。');
+        } finally {
+            if (btn) { btn.disabled = false; btn.textContent = originalLabel; }
         }
     });
 })();
 
-// ==== ヒーローの回転ワード ====
+// ========== 4) ヒーローの回転ワード ==========
 (function () {
     const el = document.getElementById('hero-rotate');
     if (!el) return;
@@ -98,7 +111,7 @@
     }, 1800);
 })();
 
-// ==== スクロールでふわっと表示 ====
+// ========== 5) スクロールでふわっと表示 ==========
 (function () {
     const targets = Array.from(document.querySelectorAll('[data-reveal]'));
     if (!('IntersectionObserver' in window) || targets.length === 0) {
