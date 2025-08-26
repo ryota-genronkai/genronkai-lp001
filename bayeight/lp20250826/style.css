@@ -435,7 +435,7 @@ header.block{
 /* ==== FINAL overrides (smart & minimal) ==== */
 :root{
   /* 調整用トークン：ここだけ触れば全体の雰囲気を微調整できます */
-  --header-overlap-pc: -180px;   /* PCでヘッダーをどれだけ下に被せるか */
+  --header-overlap-pc: -150px;   /* PCでヘッダーをどれだけ下に被せるか */
   --header-overlap-sp: -48px;   /* SPでの被せ量 */
   --hero-bottom-pad: clamp(56px, 12vw, 140px); /* ヒーロー内コンテンツの下余白＝さらに下げる */
 }
