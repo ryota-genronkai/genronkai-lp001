@@ -539,3 +539,63 @@ main, .form-wrap, .form{
 .hero-overlay a, .hero-overlay button{
   pointer-events: auto;
 }
+
+/* ====== 1) ヘッダーを完全透過 + ヒーローに自然に重ねる ====== */
+header.block{
+  background: transparent !important;   /* 背景を完全透過 */
+  position: relative;                    /* スタッキング確定 */
+  z-index: 4;                            /* ヒーローより前面に置く */
+  margin-bottom: -150px;                 /* 好きな被せ量（PC値はそのまま） */
+}
+@media (max-width:1023.98px){
+  header.block{ margin-bottom: -80px; }  /* TB/SPは控えめ */
+}
+
+/* ロゴ画像を背景になじませる（白ロゴの“白縁”対策） */
+header.block img{
+  mix-blend-mode: multiply;
+  opacity: .96;
+  display: block;
+}
+
+/* ヒーロー上部の“白フェード”がヘッダーと干渉するので無効化 */
+.hero .hero-wrap::before{
+  display: none !important;
+}
+
+/* ヒーローのオーバーレイは下寄せにしつつ、クリック邪魔しない */
+.hero-overlay{
+  z-index: 1;                /* 低め */
+  pointer-events: none;      /* 覆ってもクリックは通す */
+}
+.hero-overlay a,
+.hero-overlay button,
+.hero-overlay .hero-cta{
+  pointer-events: auto;      /* テキスト/ボタンだけクリック可に */
+}
+
+/* ====== 2) 送信ボタンが“消える/押せない”対策 ====== */
+/* フォーム一式を確実に前面へ */
+.form-wrap, .form{
+  position: relative;
+  z-index: 5;                /* ヘッダー/オーバーレイより前 */
+}
+
+/* 念のため、送信ボタンを確実に表示 & クリック可に */
+.submit-btn,
+.form button[type="submit"]{
+  display: inline-block !important;
+  visibility: visible !important;
+  pointer-events: auto !important;
+  position: relative;
+  z-index: 6;                /* さらに最前 */
+}
+
+/* フッターは最背面へ（重なって覆わないように） */
+.foot{
+  position: relative;
+  z-index: 0;                /* 下層に固定 */
+}
+
+/* もし fixed の下部CTAが残っていたら完全に無効化（誤爆防止） */
+.sticky-cta{ display:none !important; visibility:hidden !important; }
