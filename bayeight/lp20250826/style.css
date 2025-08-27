@@ -790,3 +790,26 @@ header.block{
 
 /* --- DEBUG: data-reveal 強制表示（暫定） --- */
 [data-reveal] { opacity: 1 !important; transform: none !important; }
+
+/* ==== pains 内の挿入画像 ==== */
+.pains-visual{
+  margin: 10px 0 12px;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,.12);
+  box-shadow: 0 10px 24px rgba(0,0,0,.22);
+}
+.pains-visual img{
+  display:block;
+  width:100%;
+  height:auto;
+  /* 暗背景でも映えるようにわずかに持ち上げる */
+  filter: saturate(1.02) contrast(1.03);
+}
+
+/* 余白微調整（上の見出しとのバランス） */
+.pains-ttl{ margin-bottom: 12px; }
+.pains-list{ margin-top: 12px; }
+@media (min-width: 768px){
+  .pains-visual{ margin: 12px 0 14px; }
+}
