@@ -1056,3 +1056,31 @@ header.block{
   text-align: right !important;
   margin-top: 10px; /* 既存値のままでもOK、好みで調整 */
 }
+
+/* === SP最適化（~768px） =============================== */
+@media (max-width: 767.98px){
+
+  /* 1) ヘッダーが“上に浮く”のを緩和：被せ量を弱める */
+  header.block{
+    margin-bottom: -24px !important;   /* 強すぎるなら -12px / 0 に調整OK */
+  }
+
+  /* 2) ヒーローのテキスト（“完全個別 × 学習コーチング”など）を下寄せ */
+  .hero-overlay{
+    place-content: end center !important;                  /* 下寄せに固定 */
+    padding-top: 0 !important;
+    padding-bottom: clamp(48px, 14vw, 80px) !important;    /* 下にゆとり */
+  }
+  .badge-hero{ margin-bottom: 6px !important; }
+  .hero-sub{  margin-top: 4px !important; }
+
+  /* 3) 強み（strength）をSPでは2列に */
+  .gallery.cols-3{
+    grid-template-columns: repeat(2, 1fr) !important;  /* 1列→2列 */
+    gap: 8px 10px !important;                          /* 少しだけタイトに */
+  }
+  .gallery.cols-3 img{ border-radius: 10px; }
+
+  /* 4) KPIとの距離が詰まる場合の保険（お好みで） */
+  .kpis{ margin-top: 12px !important; }
+}
