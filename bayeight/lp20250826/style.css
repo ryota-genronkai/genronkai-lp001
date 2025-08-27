@@ -940,3 +940,24 @@ header.block{
 @media (min-width: 768px){
   .charm-hero{ margin-top: 18px; margin-bottom: 14px; }
 }
+
+/* === 「だから得られる…」の直後に余白をプラス === */
+
+/* 見出しブロック自体の下に余白を付ける */
+.proof-intro{
+  margin-bottom: clamp(14px, 3.2vw, 28px) !important;
+  padding-bottom: 0 !important;
+}
+.proof-intro .proof-title{
+  margin: 0 !important; /* 余白は親で管理 */
+}
+
+/* 次のブロック（= 生の声セクション）が続く場合はさらに少しだけ足す */
+.proof-intro + .block{
+  margin-top: clamp(6px, 1.6vw, 14px) !important;
+}
+
+/* 生の声のカード群にも“上ぶくみ”のゆとりを */
+.proof-intro + .block .voice-cards{
+  margin-top: clamp(6px, 1.8vw, 16px);
+}
