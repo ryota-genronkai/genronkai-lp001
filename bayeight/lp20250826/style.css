@@ -1043,3 +1043,16 @@ header.block{
           background-clip: text;
   color: transparent;
 }
+
+/* === PROMO 微調整 === */
+/* 2行目「万が一〜返金保証付き(※)！！」は少し小さめに */
+.promo-big + .promo-big{
+  font-size: clamp(16px, 3.6vw, 20px) !important; /* 以前より控えめ */
+  line-height: 1.18;
+}
+
+/* 注記「※ 契約日より十日間以内…」は右揃えに */
+.promo-small{
+  text-align: right !important;
+  margin-top: 10px; /* 既存値のままでもOK、好みで調整 */
+}
