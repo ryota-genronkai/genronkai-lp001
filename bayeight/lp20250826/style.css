@@ -9,85 +9,6 @@ body { font-family: system-ui, -apple-system, "Helvetica Neue", Arial, "Noto San
 .block { max-width: 1080px; margin: 0 auto; padding: 0 12px; }
 .full { width: 100%; }
 
-.pains {
-  background: linear-gradient(180deg, #23262b, #1c2024);
-  color: #fff;
-  border-radius: 14px;
-  padding: clamp(16px, 3.2vw, 28px);
-  box-shadow: 0 10px 28px rgba(0,0,0,.18);
-  position: relative;
-  overflow: hidden;
-}
-.pains::after{
-  content:""; position:absolute; right:-40px; bottom:-40px; width:180px; height:180px;
-  background: radial-gradient(closest-side, rgba(255,255,255,.08), rgba(255,255,255,0));
-  filter: blur(2px);
-}
-.pains-ttl{
-  margin: 0 0 10px;
-  font-weight: 900;
-  letter-spacing: .02em;
-  font-size: clamp(18px, 3.6vw, 24px);
-}
-.pains-list{
-  list-style: none;
-  margin: 0; padding: 0;
-  display: grid; gap: 10px;
-}
-.pains-list li{
-  display: grid; grid-template-columns: 24px 1fr; align-items: start;
-  gap: 8px;
-  font-size: clamp(14px, 2.6vw, 16px);
-  line-height: 1.7;
-  background: rgba(255,255,255,.05);
-  border: 1px solid rgba(255,255,255,.10);
-  border-radius: 10px;
-  padding: 10px 12px;
-}
-.pains-list li::before{
-  content: "😔";
-  display: inline-grid; place-items: center;
-  width: 24px; height: 24px; border-radius: 6px;
-  background: rgba(255,255,255,.12);
-  font-size: 14px;
-}
-
-/* ===== 解決セクション ===== */
-.solution{
-  text-align: center;
-  background: #f2f9ff;
-  border: 1px solid #cfe9fb;
-  border-radius: 14px;
-  padding: clamp(16px, 3.2vw, 28px);
-  margin-top: 14px;
-}
-.solution-badge{
-  display: inline-block;
-  margin: 0 0 6px;
-  padding: 4px 10px;
-  font-weight: 800; font-size: 12px;
-  color: #006ea3;
-  background: #e6f4ff;
-  border: 1px solid #bfe5ff;
-  border-radius: 999px;
-  letter-spacing: .04em;
-}
-.solution-ttl{
-  margin: 0 0 6px;
-  color: #00a0e9;                /* ブランディングカラー */
-  font-weight: 900;
-  font-size: clamp(20px, 4.6vw, 30px);
-  letter-spacing: .01em;
-}
-.solution-sub{
-  margin: 0 0 14px;
-  color: #1d2430;
-  font-size: clamp(14px, 2.6vw, 16px);
-  opacity: .9;
-}
-.br-md{ display:none; }
-@media (min-width:768px){ .br-md{ display:inline; } }
-
 /* 狭め表示（ヒーロー系に） */
 .narrow-img { width: 100%; max-width: 900px; margin: 0 auto; display: block; }
 
@@ -613,10 +534,10 @@ main, .form-wrap, .form{
 /* --- 3) 余計な“全体を覆う”要素があればクリック透過 --- */
 /* （ヒーローのオーバーレイが下まで伸びている場合の保険） */
 .hero-overlay{
-  pointer-events: none;         /* テキスト/ボタンには inline で pointer-events:auto を */
+  pointer-events: none;         /* 覆ってもクリックは通す */
 }
 .hero-overlay a, .hero-overlay button{
-  pointer-events: auto;
+  pointer-events: auto;         /* テキスト/ボタンだけクリック可に */
 }
 
 /* ====== 1) ヘッダーを完全透過 + ヒーローに自然に重ねる ====== */
@@ -763,4 +684,106 @@ header.block{
 /* トーストの見た目を少しだけ整える */
 .toast{
   font-weight:700; font-size:14px;
+}
+
+/* ======== ここから追加：悩み／解決スタイル ======== */
+
+/* 悩みセクション */
+.pains {
+  background: linear-gradient(180deg, #23262b, #1c2024);
+  color: #fff;
+  border-radius: 14px;
+  padding: clamp(16px, 3.2vw, 28px);
+  box-shadow: 0 10px 28px rgba(0,0,0,.18);
+  position: relative;
+  overflow: hidden;
+  margin-top: 6px;
+}
+.pains::after{
+  content:""; position:absolute; right:-40px; bottom:-40px; width:180px; height:180px;
+  background: radial-gradient(closest-side, rgba(255,255,255,.08), rgba(255,255,255,0));
+  filter: blur(2px);
+}
+.pains-ttl{
+  margin: 0 0 10px;
+  font-weight: 900;
+  letter-spacing: .02em;
+  font-size: clamp(18px, 3.6vw, 24px);
+}
+.pains-list{
+  list-style: none;
+  margin: 0; padding: 0;
+  display: grid; gap: 10px;
+}
+.pains-list li{
+  display: grid; grid-template-columns: 24px 1fr; align-items: start;
+  gap: 8px;
+  font-size: clamp(14px, 2.6vw, 16px);
+  line-height: 1.7;
+  background: rgba(255,255,255,.05);
+  border: 1px solid rgba(255,255,255,.10);
+  border-radius: 10px;
+  padding: 10px 12px;
+}
+.pains-list li::before{
+  content: "😔";
+  display: inline-grid; place-items: center;
+  width: 24px; height: 24px; border-radius: 6px;
+  background: rgba(255,255,255,.12);
+  font-size: 14px;
+}
+
+/* 解決セクション */
+.solution{
+  text-align: center;
+  background: #f2f9ff;
+  border: 1px solid #cfe9fb;
+  border-radius: 14px;
+  padding: clamp(16px, 3.2vw, 28px);
+  margin-top: 14px;
+}
+.solution-badge{
+  display: inline-block;
+  margin: 0 0 6px;
+  padding: 4px 10px;
+  font-weight: 800; font-size: 12px;
+  color: #006ea3;
+  background: #e6f4ff;
+  border: 1px solid #bfe5ff;
+  border-radius: 999px;
+  letter-spacing: .04em;
+}
+.solution-ttl{
+  margin: 0 0 6px;
+  color: #00a0e9;                /* ブランディングカラー */
+  font-weight: 900;
+  font-size: clamp(20px, 4.6vw, 30px);
+  letter-spacing: .01em;
+}
+.solution-sub{
+  margin: 0 0 14px;
+  color: #1d2430;
+  font-size: clamp(14px, 2.6vw, 16px);
+  opacity: .9;
+}
+.br-md{ display:none; }
+@media (min-width:768px){ .br-md{ display:inline; } }
+
+/* CTAボタン（submitとトーン合わせ） */
+.solution-cta{
+  display:inline-flex; align-items:center; justify-content:center;
+  gap:8px; text-decoration:none;
+  padding: 12px 18px;
+  border-radius: 12px;
+  font-weight: 800; font-size: 15.5px; letter-spacing: .02em;
+  background: linear-gradient(180deg, #00a0e9, #0086c1);
+  color:#fff;
+  box-shadow: 0 10px 24px rgba(0,160,233,.25);
+  transition: transform .06s ease, box-shadow .2s ease, opacity .2s ease;
+}
+.solution-cta:hover{ transform: translateY(-1px); box-shadow:0 14px 28px rgba(0,160,233,.28); }
+.solution-cta:active{ transform: translateY(0); box-shadow:0 8px 18px rgba(0,160,233,.20); }
+.solution-cta:focus-visible{
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(0,160,233,.25), 0 10px 24px rgba(0,160,233,.25);
 }
