@@ -787,3 +787,6 @@ header.block{
   outline: none;
   box-shadow: 0 0 0 3px rgba(0,160,233,.25), 0 10px 24px rgba(0,160,233,.25);
 }
+
+/* --- DEBUG: data-reveal 強制表示（暫定） --- */
+[data-reveal] { opacity: 1 !important; transform: none !important; }
