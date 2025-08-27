@@ -961,3 +961,45 @@ header.block{
 .proof-intro + .block .voice-cards{
   margin-top: clamp(6px, 1.8vw, 16px);
 }
+
+/* === Reusable: ファンシータイトル（charm-ttl と同テイスト） === */
+.fancy-ttl-base{
+  font-weight: 900;
+  line-height: 1.1;
+  letter-spacing: .01em;
+  background: linear-gradient(180deg, #00a0e9 0%, #0086c1 100%);
+  -webkit-background-clip: text;
+          background-clip: text;
+  color: transparent;
+  text-shadow: 0 2px 14px rgba(0,160,233,.18);
+}
+
+/* “そんなあなたに、現論会！” をファンシー化（solution 内の見出しに適用） */
+.solution h2,
+.solution .solution-ttl{
+  /* 既存サイズはそのまま／色表現だけ置き換える */
+  font-weight: 900;
+  background: linear-gradient(180deg, #00a0e9 0%, #0086c1 100%);
+  -webkit-background-clip: text;
+          background-clip: text;
+  color: transparent;
+  text-shadow: 0 2px 14px rgba(0,160,233,.18);
+}
+
+/* “だから得られる、圧倒的実績と生の声！” をファンシー化 */
+.proof-intro .proof-title{
+  font-weight: 900; /* 既存より少し太く */
+  background: linear-gradient(180deg, #00a0e9 0%, #0086c1 100%);
+  -webkit-background-clip: text;
+          background-clip: text;
+  color: transparent;
+  text-shadow: 0 2px 14px rgba(0,160,233,.18);
+}
+
+/* もし見出し内で一部だけ強調したい場合用（任意で <span class="fancy-accent">〜</span> を包む） */
+.fancy-accent{
+  background: linear-gradient(180deg, #11b7ff 0%, #0086c1 100%);
+  -webkit-background-clip: text;
+          background-clip: text;
+  color: transparent;
+}
