@@ -837,3 +837,106 @@ header.block{
   }
   .voice-card{ max-width: none; }
 }
+
+/* === 生の声：PCで 2枚を中央に揃える（上書き） === */
+@media (min-width:1024px){
+  .voice-cards{
+    /* 2列・カード幅は今のサイズ感を維持 */
+    grid-template-columns: repeat(2, minmax(260px, 320px)) !important;
+    /* 2枚の“塊”をコンテナ中央へ */
+    justify-content: center !important;
+    /* 各カードは横幅いっぱい使う（文字は左寄せのまま） */
+    justify-items: stretch !important;
+    gap: 16px 20px; /* 行16 / 列20（好みで微調整OK） */
+  }
+  .voice-card{
+    max-width: 320px !important;  /* 伸びすぎ防止（今のサイズ感） */
+    margin: 0 !important;         /* 余計な中央寄せが残っていれば無効化 */
+    text-align: left;             /* テキストは左揃えのまま */
+  }
+}
+
+/* ==== BIG FANCY HEADER: 現論会 青葉台校の魅力 ==== */
+.charm-hero{
+  position: relative;
+  overflow: hidden;
+  border-radius: 16px;
+  border: 1px solid #cfe9fb;
+  background:
+    radial-gradient(140% 160% at 0% 0%, #f2f9ff 0%, #ffffff 60%) ,
+    linear-gradient(90deg, rgba(0,160,233,.10), rgba(0,160,233,.04) 50%, rgba(0,160,233,0) 100%);
+  padding: clamp(18px, 4vw, 36px);
+  text-align: center;
+  box-shadow: 0 18px 40px rgba(0,160,233,.12);
+}
+
+/* きらり演出（右下のほのかなグロー） */
+.charm-hero::after{
+  content:"";
+  position:absolute; right:-60px; bottom:-60px;
+  width:260px; height:260px; border-radius:50%;
+  background: radial-gradient(closest-side, rgba(0,160,233,.20), rgba(0,160,233,0));
+  filter: blur(2px);
+}
+
+/* 上辺のライト帯 */
+.charm-hero::before{
+  content:"";
+  position:absolute; left:-20%; right:-20%; top:-1px; height:8px;
+  background: linear-gradient(90deg, rgba(255,255,255,.0), rgba(255,255,255,.8), rgba(255,255,255,.0));
+  opacity:.7;
+}
+
+/* 内側ラップ（将来カード列を置く時のためのセンター固定） */
+.charm-wrap{
+  max-width: 900px; margin: 0 auto;
+}
+
+/* 小さめバッジ（位置ラベル） */
+.charm-badge{
+  display:inline-block;
+  padding: 6px 10px;
+  font-weight: 800; font-size: 12px; letter-spacing:.04em;
+  color:#006ea3;
+  background:#e6f4ff;
+  border:1px solid #bfe5ff;
+  border-radius:999px;
+  box-shadow: 0 6px 18px rgba(0,160,233,.12);
+}
+
+/* メイン見出し（グラデ文字＋柔らかい影） */
+.charm-ttl{
+  margin: 8px 0 0;
+  font-weight: 900;
+  line-height: 1.1;
+  font-size: clamp(24px, 6.2vw, 42px);
+  letter-spacing: .01em;
+  background: linear-gradient(180deg, #00a0e9 0%, #0086c1 100%);
+  -webkit-background-clip: text;
+          background-clip: text;
+  color: transparent;
+  text-shadow: 0 2px 14px rgba(0,160,233,.18);
+}
+
+/* 中の “青葉台校” をアクセント色でちょい強調（透明グラデにも対応） */
+.charm-ttl .charm-accent{
+  background: linear-gradient(180deg, #11b7ff 0%, #0086c1 100%);
+  -webkit-background-clip: text;
+          background-clip: text;
+  color: transparent;
+}
+
+/* サブコピー（必要なら使う） */
+.charm-sub{
+  margin: 8px 0 0;
+  font-size: clamp(13px, 2.6vw, 16px);
+  color:#1d2430;
+  opacity:.85;
+}
+
+/* 余白調整（上下と他セクションとの距離） */
+.charm-hero{ margin-top: 14px; margin-bottom: 10px; }
+
+@media (min-width: 768px){
+  .charm-hero{ margin-top: 18px; margin-bottom: 14px; }
+}
