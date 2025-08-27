@@ -1003,3 +1003,43 @@ header.block{
           background-clip: text;
   color: transparent;
 }
+
+/* === PROMO：ファンシー見出し化（グラデ文字＋柔らかい影） === */
+.promo{
+  position: relative;
+  border-radius: 16px;
+  border: 1px solid #cfe9fb;
+  background:
+    radial-gradient(140% 160% at 0% 0%, #f2f9ff 0%, #ffffff 60%),
+    linear-gradient(90deg, rgba(0,160,233,.10), rgba(0,160,233,.04) 50%, rgba(0,160,233,0) 100%);
+  box-shadow: 0 18px 40px rgba(0,160,233,.12);
+  padding: clamp(20px, 4vw, 28px) 12px 20px; /* すこしリッチに */
+}
+
+.promo-big{
+  margin: 6px 0 0;
+  font-weight: 900;
+  line-height: 1.12;
+  font-size: clamp(22px, 5.8vw, 40px);
+  background: linear-gradient(180deg, #00a0e9 0%, #0086c1 100%);
+  -webkit-background-clip: text;
+          background-clip: text;
+  color: transparent; /* グラデ色を生かす */
+  text-shadow: 0 2px 14px rgba(0,160,233,.18);
+}
+.promo-big + .promo-big{
+  margin-top: 8px;                       /* 2行目との間隔を少し広めに */
+  font-size: clamp(18px, 4.6vw, 28px);   /* 2行目は少し小さくしてリズム */
+}
+
+.promo-small{
+  margin-top: 10px; /* 注記との距離を確保 */
+}
+
+/* 既出のアクセントクラスをプロモ内でも利用可 */
+.promo .fancy-accent{
+  background: linear-gradient(180deg, #11b7ff 0%, #0086c1 100%);
+  -webkit-background-clip: text;
+          background-clip: text;
+  color: transparent;
+}
