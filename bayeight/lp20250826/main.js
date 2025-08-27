@@ -26,44 +26,119 @@
     const toast = document.getElementById('form-toast');
     const btn = form.querySelector('.submit-btn');
 
-    // --- カスタムメッセージ設定 ---
+    // 対象フィールド
     const fields = {
         name: form.querySelector('input[name="name"]'),
         email: form.querySelector('input[name="email"]'),
         phone: form.querySelector('input[name="phone"]'),
-        grade: form.querySelector('select[name="grade"]')
+        grade: form.querySelector('select[name="grade"]'),
+        message: form.querySelector('textarea[name="message"]') // 任意
     };
-    const setMsg = (el, msg) => el && el.setCustomValidity(msg || '');
 
+    // ------- エラーメッセージの生成/削除 -------
+    function showError(el, msg) {
+        const wrap = el.closest('label') || el.parentElement || el;
+        wrap.classList.add('err');
+        let m = wrap.querySelector('.err-msg');
+        if (!m) {
+            m = document.createElement('p');
+            m.className = 'err-msg';
+            wrap.appendChild(m);
+        }
+        m.textContent = msg;
+        el.setAttribute('aria-invalid', 'true');
+    }
+    function clearError(el) {
+        const wrap = el.closest('label') || el.parentElement || el;
+        wrap.classList.remove('err');
+        const m = wrap.querySelector('.err-msg');
+        if (m) m.remove();
+        el.removeAttribute('aria-invalid');
+        // ネイティブ検証メッセージも消しておく
+        if (typeof el.setCustomValidity === 'function') el.setCustomValidity('');
+    }
+
+    // ------- 個別バリデータ -------
+    function validateField(el) {
+        if (!el) return true;
+        clearError(el); // 先にクリア
+
+        const name = el.name;
+        const val = (el.value || '').trim();
+
+        if (name === 'name') {
+            if (!val) {
+                showError(el, 'お名前は必須です');
+                return false;
+            }
+            return true;
+        }
+
+        if (name === 'grade') {
+            if (!val) {
+                showError(el, '学年を選択してください');
+                return false;
+            }
+            return true;
+        }
+
+        if (name === 'email') {
+            if (!val) {
+                showError(el, 'メールアドレスは必須です');
+                return false;
+            }
+            // ブラウザの型判定
+            if (el.validity && el.validity.typeMismatch) {
+                showError(el, '有効なメールアドレスを入力してください');
+                return false;
+            }
+            return true;
+        }
+
+        if (name === 'phone') {
+            if (!val) {
+                showError(el, '電話番号は必須です');
+                return false;
+            }
+            // pattern（HTML側のpatternを尊重）
+            if (el.validity && (el.validity.patternMismatch || el.validity.tooShort || el.validity.tooLong)) {
+                showError(el, '電話番号を正しく入力してください（例：080-1234-5678）');
+                return false;
+            }
+            return true;
+        }
+
+        // 任意項目など
+        return true;
+    }
+
+    // blurで逐次チェック、input/changeでエラー解除
     Object.values(fields).forEach(el => {
         if (!el) return;
-        el.addEventListener('invalid', () => {
-            if (el.name === 'email') {
-                setMsg(el, el.validity.valueMissing ? 'メールアドレスは必須です' : '有効なメールアドレスを入力してください');
-            } else if (el.name === 'phone') {
-                setMsg(el, el.validity.valueMissing ? '電話番号は必須です' : '電話番号を正しく入力してください（例：080-1234-5678）');
-            } else if (el.tagName === 'SELECT') {
-                setMsg(el, '学年を選択してください');
-            } else if (el.name === 'name') {
-                setMsg(el, 'お名前は必須です');
-            }
-        });
-        el.addEventListener('input', () => setMsg(el, ''));
-        el.addEventListener('change', () => setMsg(el, ''));
+        el.addEventListener('blur', () => validateField(el));
+        el.addEventListener('input', () => clearError(el));
+        el.addEventListener('change', () => clearError(el));
     });
 
-    // --- 送信 ---
+    // ------- 送信 -------
     form.addEventListener('submit', async (e) => {
-        e.preventDefault();
+        e.preventDefault(); // 自動送信は止める（novalidate運用）
 
-        // ネイティブ検証（メッセージは上で上書き）
-        if (!form.reportValidity()) {
-            const firstInvalid = form.querySelector(':invalid');
-            if (firstInvalid) firstInvalid.focus();
+        // 1) 全項目検証
+        const order = [fields.name, fields.grade, fields.phone, fields.email]; // フォーカス優先
+        let firstInvalid = null;
+        order.forEach(el => {
+            const ok = validateField(el);
+            if (!ok && !firstInvalid) firstInvalid = el;
+        });
+        if (firstInvalid) {
+            try { firstInvalid.focus({ preventScroll: false }); } catch { }
+            // ネイティブの吹き出しも出す場合は↓（Safari等で出ない環境あり）
+            if (typeof firstInvalid.reportValidity === 'function') firstInvalid.reportValidity();
             return;
         }
 
-        // 状態：送信中
+        // 2) 状態：送信中
         const originalLabel = btn ? btn.textContent : '';
         if (btn) { btn.disabled = true; btn.textContent = '送信中…'; }
 
@@ -73,52 +148,33 @@
             const body = new URLSearchParams();
             for (const [k, v] of fd.entries()) body.append(k, v);
 
-            // 10秒タイムアウト
-            const ac = new AbortController();
-            const t = setTimeout(() => ac.abort(), 10000);
-
             const res = await fetch('/api/submit', {
                 method: 'POST',
-                // ← URLSearchParams を渡すと自動で Content-Type が付くので明示しなくてもOK
-                // もし残すならこのままでも可
                 headers: { 'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8' },
-                body,
-                signal: ac.signal,
+                body
             });
 
-            clearTimeout(t);
-
-            // 本文をテキストで必ず読む（エラー時の中身を見たい）
-            let text = '';
-            try { text = await res.text(); } catch { }
-
-            // 可能なら JSON も試す（APIが詳細返している場合）
-            let j = null;
-            try { j = JSON.parse(text); } catch { }
-
-            if (!res.ok || (j && j.ok === false)) {
-                const msg =
-                    (j && (j.error || j.message)) ||
-                    (text && text.slice(0, 500)) ||
-                    `HTTP ${res.status}`;
-                throw new Error(msg);
-            }
+            if (!res.ok) throw new Error(`HTTP ${res.status}`);
 
             // 成功処理
             form.reset();
+            // 全てのエラー表示を消す
+            Object.values(fields).forEach(clearError);
+
             if (toast) {
                 toast.hidden = false;
                 try { toast.scrollIntoView({ behavior: 'smooth', block: 'nearest' }); } catch { }
                 setTimeout(() => (toast.hidden = true), 3000);
             }
         } catch (err) {
-            console.error('[submit error]', err);
-            alert(`送信に失敗しました。\n${String(err.message || err).slice(0, 300)}`);
+            console.error(err);
+            alert('送信に失敗しました。時間をおいて再度お試しください。');
         } finally {
             if (btn) { btn.disabled = false; btn.textContent = originalLabel; }
         }
-
+    });
 })();
+
 
 // ========== 4) ヒーローの回転ワード ==========
 (function () {

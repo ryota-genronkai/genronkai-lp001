@@ -813,3 +813,27 @@ header.block{
 @media (min-width: 768px){
   .pains-visual{ margin: 12px 0 14px; }
 }
+
+/* ==== フォームのエラーメッセージ ==== */
+.form .err input,
+.form .err select,
+.form .err textarea{
+  border-color:#b3122e;
+  background:#fff7f9;
+}
+.form .err-msg{
+  margin-top:4px;
+  color:#b3122e;
+  font-size:12px;
+  line-height:1.5;
+}
+
+/* ==== 生の声：PCは2列で固定 ==== */
+@media (min-width:1024px){
+  .voice-cards{
+    grid-template-columns: 1fr 1fr !important;
+    justify-content: stretch;
+    justify-items: stretch;
+  }
+  .voice-card{ max-width: none; }
+}
