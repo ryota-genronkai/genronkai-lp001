@@ -223,22 +223,20 @@
   <!-- ↓↓↓ ここにあった hidden_iframe は削除 ↓↓↓ -->
 
   <form id="lead-form" class="form" method="POST"
-      action="https://formsubmit.co/ryota.ishii.gengakusha@gmail.com?next=https://genronkai-lp001.vercel.app/thanks.html"
-      accept-charset="UTF-8" novalidate>
-    <!-- （任意）送信後にthanksページへ -->
-    <!-- <input type="hidden" name="_next" value="https://genronkai.com/thanks.html"> -->
+  action="https://formsubmit.co/ryota.ishii.gengakusha@gmail.com?next=https%3A%2F%2Fgenronkai-lp001.vercel.app%2Fthanks.html"
+  accept-charset="UTF-8">
 
-    <!-- 件名 / スパム対策 -->
-    <input type="hidden" name="_subject" value="【LP申込み】新規お問い合わせ">
-    <input type="text"   name="_honey" style="display:none">
-    <input type="hidden" name="_captcha" value="false">
-    
-    <!-- サンクスページ -->
-    <input type="hidden" name="_next" value="https://genronkai-lp001.vercel.app/thanks.html">
+  <!-- 件名 / スパム対策 -->
+  <input type="hidden" name="_subject" value="【LP申込み】新規お問い合わせ">
+  <input type="text"   name="_honey" style="display:none">
+  <input type="hidden" name="_captcha" value="false">
 
-    <!-- UTM -->
-    <input type="hidden" id="utm_source"   name="utm_source">
-    <input type="hidden" id="utm_campaign" name="utm_campaign">
+  <!-- ★ 二重指定（hidden側も残す） -->
+  <input type="hidden" name="_next" value="https://genronkai-lp001.vercel.app/thanks.html">
+
+  <!-- UTM -->
+  <input type="hidden" id="utm_source" name="utm_source">
+  <input type="hidden" id="utm_campaign" name="utm_campaign">
 
     <div class="grid">
       <label>
@@ -263,7 +261,7 @@
           required
           inputmode="tel"
           placeholder="例）080-1234-5678"
-          pattern="^(0\\d{1,4}[-\\s]?\\d{2,4}[-\\s]?\\d{3,4}|\\d{10,11})$"
+          pattern="^(0\d{1,4}[-\s]?\d{2,4}[-\s]?\d{3,4}|\d{10,11})$"
           title="電話番号を正しく入力してください（例：080-1234-5678 もしくは 10〜11桁の数字）"
         />
       </label>
