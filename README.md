@@ -30,7 +30,7 @@ Push → Deploy → Your LP is live instantly.
 HTML = HyperText Markup Language. It defines the structure of your web page.
 
 🔹 CSS
-CSS = Cascading Style Sheets. It controls the design (colors, fonts, layout).
+CSS = Cascading Style Sheets. It controls the design (colours, fonts, layout).
 
 🔹 JavaScript
 JS adds interactivity (e.g., button clicks, animations).
