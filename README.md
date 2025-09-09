@@ -188,31 +188,7 @@ git commit -m "Created new LP lp20250901"
 git push origin main
 ```
 
-## ⚡ 11. Terminal Basics
-```🔹 Navigation
-pwd     # print working directory
-ls      # list files
-cd dir  # change directory
-```
-
-```🔹 File viewing
-cat file.txt   # show full file
-less file.txt  # scrollable view (q = quit, /search = search)
-head file.txt  # first 10 lines
-tail file.txt  # last 10 lines
-```
-
-```🔹 Editing
-code file.txt
-```
-
-```🔹 Autocomplete & history
-Tab → auto-completes file/folder names.
-↑ / ↓ (arrow keys) → scroll through command history.
-Ctrl + R → search history interactively.
-```
-
-## 📊 12. Useful File Operations
+## 📊 11. Useful File Operations
 
 ```Replace characters in file:
 sed -i 's/,/、/g' index.html
@@ -238,14 +214,14 @@ cat part1.txt part2.txt > merged.txt
 find . -type f -size +10M
 ```
 
-## 🚀 13. Deployment with Vercel
+## 🚀 12. Deployment with Vercel
 
 Once you push to GitHub, Vercel automatically deploys.
 Manual deploy:
 
 vercel
 
-## 📚 14. Cheat Sheet
+## 📚 13. Cheat Sheet
 ```Command	Purpose
 git status	Show changes
 git add .	Stage all changes
