@@ -12,7 +12,7 @@ First, install [Git](https://git-scm.com/downloads) if you don’t already have 
 Then clone this repository:
 
 ```bash
-git clone https://github.com/<your-username>/lp.git
+git clone https://github.com/ryota-genronkai/genronkai-lp001.git
 cd lp
 ```
 ---
