@@ -6,7 +6,31 @@ By reading this README, even beginners would be able to use CUI confidently.
 
 ---
 
-## 📥 1. Clone the Repository
+## ⚡ 1. Terminal Basics
+```🔹 Navigation
+pwd     # print working directory
+ls      # list files
+cd dir  # change directory
+```
+
+```🔹 File viewing
+cat file.txt   # show full file
+less file.txt  # scrollable view (q = quit, /search = search)
+head file.txt  # first 10 lines
+tail file.txt  # last 10 lines
+```
+
+```🔹 Editing
+code file.txt
+```
+
+```🔹 Autocomplete & history
+Tab → auto-completes file/folder names.
+↑ / ↓ (arrow keys) → scroll through command history.
+Ctrl + R → search history interactively.
+```
+
+## 📥 2. Clone the Repository
 
 First, install [Git](https://git-scm.com/downloads) if you don’t have one yet.  
 Then clone this repository:
@@ -17,7 +41,7 @@ cd lp
 ```
 ---
 
-## 📚 2. What Are These Tools?
+## 📚 3. What Are These Tools?
 🔹 Git
 Git is a version control system. It lets you track changes in your code, go back in history, and collaborate with others.
 GitHub is a cloud service that stores your Git repositories.
@@ -37,7 +61,7 @@ JS adds interactivity (e.g., button clicks, animations).
 
 ---
 
-## 📂 3. Project Structure
+## 📂 4. Project Structure
 
 The structure of the project looks like this:
 
@@ -68,7 +92,7 @@ The structure of the project looks like this:
 ```
 ---
 
-## 🔧 4. Installing Homebrew (macOS only)
+## 🔧 5. Installing Homebrew (macOS only)
 
 Homebrew
  is a package manager for macOS. It makes installing tools easy.
@@ -89,7 +113,7 @@ brew install tree        # show directory structure
 brew install imagemagick # image manipulation
 brew install webp        # convert images to .webp
 ```
-✏️ 5. Editing Files
+## ✏️ 6. Editing Files
 
 Typical files you will edit:
 　index.html → Main landing page HTML.
@@ -105,13 +129,13 @@ nano index.html       # simple terminal editor
 open index.html       # open in browser
 ```
 
-🖼️ 6. Converting Images to WebP
+## 🖼️ 7. Converting Images to WebP
 
 ```Convert PNG → WebP:
 mogrify -format webp *.png
 ```
 
-🌳 7. Git Basics
+## 🌳 8. Git Basics
 ```Check status:
 git status
 ```
@@ -132,7 +156,7 @@ git push origin main
 git pull origin main
 ```
 
-🔄 8. Typical Workflow
+## 🔄 9. Typical Workflow
 
 ```1. Clone once:
 git clone https://github.com/ryota-genronkai/genronkai-lp001.git
@@ -145,7 +169,7 @@ cd lp
 6. git push origin main
 7. Vercel deploys automatically.
 
-🆕 9. Creating a New Landing Page (LP)
+## 🆕 10. Creating a New Landing Page (LP)
 
 ```Create new LP by copying an existing one:
 cd bayeight
@@ -164,7 +188,7 @@ git commit -m "Created new LP lp20250901"
 git push origin main
 ```
 
-⚡ 10. Terminal Basics
+## ⚡ 11. Terminal Basics
 ```🔹 Navigation
 pwd     # print working directory
 ls      # list files
@@ -179,7 +203,7 @@ tail file.txt  # last 10 lines
 ```
 
 ```🔹 Editing
-nano file.txt
+code file.txt
 ```
 
 ```🔹 Autocomplete & history
@@ -188,7 +212,7 @@ Tab → auto-completes file/folder names.
 Ctrl + R → search history interactively.
 ```
 
-📊 11. Useful File Operations
+## 📊 12. Useful File Operations
 
 ```Replace characters in file:
 sed -i 's/,/、/g' index.html
@@ -214,14 +238,14 @@ cat part1.txt part2.txt > merged.txt
 find . -type f -size +10M
 ```
 
-🚀 12. Deployment with Vercel
+## 🚀 13. Deployment with Vercel
 
 Once you push to GitHub, Vercel automatically deploys.
 Manual deploy:
 
 vercel
 
-📚 13. Cheat Sheet
+## 📚 14. Cheat Sheet
 ```Command	Purpose
 git status	Show changes
 git add .	Stage all changes
