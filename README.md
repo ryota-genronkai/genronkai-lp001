@@ -1,14 +1,14 @@
 # Landing Page Project (`lp`)
 
 This repository contains multiple landing page projects used for BayEight / Genronkai campaigns.  
-It is not only documentation, but also a **full tutorial** that will teach you Git, Vercel, HTML/CSS/JS, terminal commands, and developer workflows — all in one place.  
-By reading this README, even beginners can become confident **terminal power users**.
+It is not only documentation, but also a **full tutorial** that will explain you Git, Vercel, HTML/CSS/JS, terminal commands, and developer workflows — all in one place.  
+By reading this README, even beginners would be able to use CUI confidently.
 
 ---
 
 ## 📥 1. Clone the Repository
 
-First, install [Git](https://git-scm.com/downloads) if you don’t already have it.  
+First, install [Git](https://git-scm.com/downloads) if you don’t have one yet.  
 Then clone this repository:
 
 ```bash
@@ -100,7 +100,7 @@ Typical files you will edit:
 
 To open and edit a file:
 ```
-code index.html       # VS Code
+code index.html       # VS Code <- highly recommended
 nano index.html       # simple terminal editor
 open index.html       # open in browser
 ```
@@ -135,7 +135,7 @@ git pull origin main
 🔄 8. Typical Workflow
 
 ```1. Clone once:
-git clone https://github.com/<your-username>/lp.git
+git clone https://github.com/ryota-genronkai/genronkai-lp001.git
 cd lp
 ```
 2. Edit files.
@@ -238,34 +238,3 @@ cat file	Show file content
 less file	Scroll file
 code file	Edit file
 ```
-
-🎓 Final Note
-This README is both documentation and a tutorial.
-By following it, you will learn:
-How to edit and manage GitHub projects.
-How to use Git and version control.
-How to deploy with Vercel.
-How to operate the terminal efficiently.
-
-Welcome to the world of terminal power users. 🚀
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
- 
